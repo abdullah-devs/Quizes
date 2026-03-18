@@ -13,6 +13,7 @@ export const pusherServer = new PusherServer({
 export const pusherClient = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY!, {
     wsHost: process.env.NEXT_PUSHER_APP_HOST,
     wsPort: Number(process.env.NEXT_PUSHER_APP_PORT),
+    wssPort: Number(process.env.NEXT_PUSHER_APP_PORT), 
     forceTLS: true,
     disableStats: true,
     enabledTransports: ['ws', 'wss'],
