@@ -6,13 +6,13 @@ export const pusherServer = new PusherServer({
     key: process.env.NEXT_PUBLIC_PUSHER_KEY!,
     secret: process.env.PUSHER_SECRET!,
     host: process.env.NEXT_PUSHER_APP_HOST!,
-    port: '6001',
+    port: process.env.NEXT_PUSHER_APP_PORT,
     useTLS: true,
 });
 
 export const pusherClient = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY!, {
     wsHost: process.env.NEXT_PUSHER_APP_HOST,
-    wsPort: 6001,
+    wsPort: Number(process.env.NEXT_PUSHER_APP_PORT),
     forceTLS: true,
     disableStats: true,
     enabledTransports: ['ws', 'wss'],
