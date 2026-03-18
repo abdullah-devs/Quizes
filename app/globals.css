@@ -1,3 +1,4 @@
+@import url(https://db.onlinewebfonts.com/c/dee7016df987b3e264b59037efc95baa?family=P22+Mackinac+W01+Medium);
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
@@ -54,7 +55,7 @@
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
+  --primary: oklch(59.1% 0.293 322.896);
   --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
@@ -116,14 +117,19 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+.font-Mackinac {
+  font-family: "P22 Mackinac W01 Medium";
+}
+
+body {
+  font-family: var(--font-bricolage);
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
   body {
     @apply bg-background text-foreground;
-  }
-  html {
-    @apply font-sans;
   }
 }

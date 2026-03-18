@@ -16,6 +16,9 @@
   },
   "linter": {
     "enabled": true,
+    "correctness": {
+      "noUnusedImports": "warn"
+    },
     "rules": {
       "recommended": true,
       "suspicious": {

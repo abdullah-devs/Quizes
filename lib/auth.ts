@@ -36,12 +36,23 @@ export async function getSession() {
   return await decodeToken(session);
 }
 
+export type currentUser = {
+  id: number;
+  name: string;
+  email: string;
+  type: "ADMIN";
+} | null;
+
 export async function getCurrentUser() {
   const session = (await cookies()).get("session")?.value;
 
   if (!session) return null;
 
   const { id, type } = await decodeToken(session);
+
+  if (type !== "ADMIN") {
+    return null;
+  }
 
   const user = await db.user.findUnique({
     where: {
@@ -59,4 +70,36 @@ export async function getCurrentUser() {
   }
 
   return { ...user, type };
+}
+
+export type currentStudent = {
+  id: number;
+  name: string;
+  avatarName: string;
+  type: "STUDENT";
+  roomId: number;
+} | null;
+
+export async function getCurrentStudent() {
+  const session = (await cookies()).get("session")?.value;
+
+  if (!session) return null;
+
+  const { id, type } = await decodeToken(session);
+
+  if (type !== "STUDENT") {
+    return null;
+  }
+
+  const student = await db.student.findUnique({
+    where: {
+      id,
+    },
+  });
+
+  if (!student) {
+    return null;
+  }
+
+  return { ...student, type };
 }

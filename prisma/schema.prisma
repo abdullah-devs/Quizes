@@ -19,29 +19,31 @@ model User {
   password  String
 
   exams     Exam[]
+  rooms     Room[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model Student {
-  id        Int     @id @default(autoincrement())
-  name      String
- 
-  roomId   Int
-  room     Room      @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  id          Int     @id @default(autoincrement())
+  name        String
+  avatarName  String
 
-  answers   Answer[]
+  roomId      Int
+  room        Room      @relation(fields: [roomId], references: [id], onDelete: Cascade)
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  answers     Answer[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 model Exam {
   id        Int     @id @default(autoincrement())
   name      String
-  userId      Int
-  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    Int
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   questions Question[]
   rooms     Room[]
@@ -52,11 +54,12 @@ model Exam {
 
 model Question {
   id        Int     @id @default(autoincrement())
-  title      String
-  examId      Int
-  exam        Exam      @relation(fields: [examId], references: [id], onDelete: Cascade)
+  title     String
+  examId    Int
+  exam      Exam      @relation(fields: [examId], references: [id], onDelete: Cascade)
 
-  choices Choice[]
+  choices   Choice[]
+  answers   Answer[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -67,6 +70,7 @@ model Choice {
   title         String
   questionId   Int
   question     Question      @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  correct      Boolean
 
   answers Answer[]
 
@@ -78,25 +82,33 @@ model Answer {
   id            Int     @id @default(autoincrement())
   choiceId   Int
   choice     Choice      @relation(fields: [choiceId], references: [id], onDelete: Cascade)
-  studentId   Int
-  student     Student      @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  studentId  Int
+  student    Student      @relation(fields: [studentId], references: [id], onDelete: Cascade)
+  questionId  Int
+  question    Question      @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  roomId     Int
+  room       Room      @relation(fields: [roomId], references: [id], onDelete: Cascade)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@unique([choiceId, studentId])
+  @@unique([choiceId, studentId, roomId])
 }
 
 model Room {
   id       Int     @id @default(autoincrement())
   code     String   @unique
+  public   Boolean  @default(false)
 
-  startAt  DateTime
-  endAt    DateTime
+  startAt  DateTime?
+  endAt    DateTime?
 
   examId   Int
   exam     Exam      @relation(fields: [examId], references: [id], onDelete: Cascade)
+  userId   Int
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
+  answers  Answer[]
   students Student[]
 
   createdAt DateTime @default(now())
