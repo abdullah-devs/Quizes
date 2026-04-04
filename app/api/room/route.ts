@@ -14,6 +14,9 @@ export async function GET() {
         where: {
             userId: user.id,
         },
+        include: {
+          exam: true
+        }
     });
 
     return NextResponse.json(rooms);

@@ -4,11 +4,11 @@ import axios from "axios";
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import type { Room } from "@/app/generated/prisma/client";
+import type { Exam, Room } from "@/app/generated/prisma/client";
 
 export function Rooms() {
   const [rooms, setRooms] = useState<
-    Room[]
+    (Room & { exam: Exam })[]
   >([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -35,9 +35,10 @@ export function Rooms() {
     <Link
       key={room.id}
       href={`/room/${room.code}`}
-      className="flex flex-col gap-2 min-w-50 rounded-md border p-4"
+      className="flex flex-col gap-1 min-w-50 rounded-md border p-4"
     >
       <h2 className="text-lg font-semibold">{room.code}</h2>
+      <p className="text-sm text-muted-foreground">{room.exam.name}</p>
     </Link>
   ));
 }

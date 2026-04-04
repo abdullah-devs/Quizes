@@ -100,7 +100,7 @@ export default function RoomDetails({ roomCode, user, student }: { roomCode: str
                 <RoomQuestionDetails isOwner={user?.id == roomDetails.userId} roomCode={roomCode} question={roomDetails.question} startAt={roomDetails.startAt} fetchQuestion={fetchRoomDetails} />
             )}
             {roomDetails?.endAt && (
-                <RoomEndResults roomCode={roomCode} />
+                <RoomEndResults roomCode={roomCode} isOwner={user?.id == roomDetails.userId} />
             )}
         </div>
         </>

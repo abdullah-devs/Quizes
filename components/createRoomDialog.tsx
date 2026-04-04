@@ -20,7 +20,7 @@ import { useRouter } from "next/navigation";
 import { Exam } from "@/app/generated/prisma/client";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
 
-export function CreateRoomDialog() {
+export function CreateRoomDialog({ children }: { children?: React.ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
   const [error, setError] = useState();
   const [examId, setExamId] = useState<number | null>(null);
@@ -68,9 +68,9 @@ export function CreateRoomDialog() {
         setIsOpen(open)
       }}
     >
-      <form>
+      <form className="w-auto w-full">
         <DialogTrigger asChild>
-          <Button><Plus/> Create Room</Button>
+          {children ?? <Button><Plus/> Create Room</Button>}
         </DialogTrigger>
         <DialogContent className="sm:max-w-sm">
           <DialogHeader>

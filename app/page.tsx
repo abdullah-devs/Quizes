@@ -12,12 +12,19 @@ export default function Home() {
           Effortlessely
         </h1>
       </div>
+      <div className="flex gap-1">
       <Link href="/dashboard">
         <Button className="group relative font-semibold rounded-lg text-lg p-5 hover:pr-8 text-fuchsia-600 bg-white">
-          Dashboard
+         Teacher Dashboard
           <ArrowRight className="absolute duration-200 opacity-0 group-hover:opacity-100 right-0 mr-3" />
         </Button>
       </Link>
+      <Link href="/room">
+        <Button className="group relative font-semibold rounded-lg text-lg p-5 hover:pr-8 bg-fuchsia-500 text-white">
+         Join a room
+          <ArrowRight className="absolute duration-200 opacity-0 group-hover:opacity-100 right-0 mr-3" />
+        </Button>
+      </Link></div>
     </div>
   );
 }
